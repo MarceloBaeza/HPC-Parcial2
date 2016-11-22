@@ -33,7 +33,7 @@ void Mult_Matrix_Cuda(double *h_a, double *h_b, double *h_c, int NumberRows_A, i
   cudaMemcpy(d_b, h_b, NumberCols_A * NumberCols_B * sizeof(double), cudaMemcpyHostToDevice);
 
   dim3 dimBlock(blocksize, blocksize, 1);
-  dim3 dimGrid((NumberRows_A / blocksize) + 1, (NumberCols_B / blocksize) + 1);
+  dim3 dimGrid((NumberCols_B / blocksize) + 1, (NumberRows_A / blocksize) + 1);
 
   multMatCUDA<<<dimGrid, dimBlock>>>(d_a, d_b, d_c, NumberRows_A, NumberCols_A, NumberCols_B);
   cudaMemcpy(h_c, d_c, NumberRows_A * NumberCols_B * sizeof(double), cudaMemcpyDeviceToHost);
